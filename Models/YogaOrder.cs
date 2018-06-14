@@ -33,7 +33,7 @@ namespace LuisBot.Models
         public static IForm<YogaOrder> BuildForm()
         {
 
-            var allYogaPants = MerchandiseDB.GetAllYogaPants();
+            List<YogaPantOption> allYogaPants = MerchandiseDB.GetAllYogaPants();
 
             var builder = new FormBuilder<YogaOrder>();
 
@@ -41,7 +41,7 @@ namespace LuisBot.Models
             .Message("Welcome to the yoga goodies shop!")
             .Field(new FieldReflector<YogaOrder>(nameof(YogaPants))
                 .SetType(null)
-                .SetFieldDescription("Yoga pant options")
+                .SetFieldDescription("yoga pants options")
                 .SetDefine((state, field) =>
                 {
                     foreach (var pants in allYogaPants)
@@ -53,7 +53,7 @@ namespace LuisBot.Models
 
                     return Task.FromResult(true);
                 })
-                .SetPrompt(new PromptAttribute("Select from the {&} \n {||} \n")
+                .SetPrompt(new PromptAttribute("Select from the {&} {||}")
                 {
                     ChoiceStyle = ChoiceStyleOptions.Carousel
 

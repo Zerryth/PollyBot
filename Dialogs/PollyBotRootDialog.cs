@@ -13,6 +13,7 @@ using Microsoft.Bot.Builder.FormFlow;
 namespace Microsoft.Bot.Sample.LuisBot
 {
     // For more information about this template visit http://aka.ms/azurebots-csharp-luis
+
     
     [Serializable]
     public class BasicLuisDialog : LuisDialog<object>
@@ -24,9 +25,9 @@ namespace Microsoft.Bot.Sample.LuisBot
             //context.Call(new YogaStoreDialog(), After_CreateYogaOrder);
             //return Task.CompletedTask;
 
-            var myform = new FormDialog<YogaOrder>(new YogaOrder(), YogaOrder.BuildForm, FormOptions.PromptInStart, null);
+            var yogaOrderForm = new FormDialog<YogaOrder>(new YogaOrder(), YogaOrder.BuildForm, FormOptions.PromptInStart, null);
 
-            context.Call<YogaOrder>(myform, After_CreateYogaOrder);
+            context.Call<YogaOrder>(yogaOrderForm, After_CreateYogaOrder);
 
             return Task.CompletedTask;
         }
@@ -230,7 +231,7 @@ namespace Microsoft.Bot.Sample.LuisBot
             var yogaCommand = "I'd like some yoga pants";
             var noteCommand = "create note";
             await context.PostAsync("Right now I can **place an order for yoga pants** for you, or help you **take notes**.");
-            await context.PostAsync($" '{yogaCommand}' or '{noteCommand}' ");
+            await context.PostAsync($" Say '{yogaCommand}' or '{noteCommand}' ");
         }
 
         private async Task ShowLuisResult(IDialogContext context, LuisResult result)
